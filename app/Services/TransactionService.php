@@ -7,7 +7,7 @@ use App\Data\Transaction\UpdateTransactionData;
 use App\Http\Resources\Transaction\TransactionResource;
 use App\Models\Transaction;
 use App\Models\Wallet;
-use App\TransactionType;
+use App\Enums\TransactionType;
 
 class TransactionService
 {

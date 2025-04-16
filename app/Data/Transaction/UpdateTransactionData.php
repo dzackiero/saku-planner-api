@@ -2,7 +2,7 @@
 
 namespace App\Data\Transaction;
 
-use App\TransactionType;
+use App\Enums\TransactionType;
 use Illuminate\Support\Carbon;
 use Spatie\LaravelData\Attributes\Validation\Date;
 use Spatie\LaravelData\Attributes\Validation\Exists;

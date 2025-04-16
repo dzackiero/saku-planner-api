@@ -2,7 +2,7 @@
 
 namespace App\Data\Category;
 
-use App\CategoryType;
+use App\Enums\CategoryType;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 

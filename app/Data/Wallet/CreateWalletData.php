@@ -2,7 +2,7 @@
 
 namespace App\Data\Wallet;
 
-use App\WalletType;
+use App\Enums\WalletType;
 use Spatie\LaravelData\Attributes\FromAuthenticatedUserProperty;
 use Spatie\LaravelData\Data;
 

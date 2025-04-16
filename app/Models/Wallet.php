@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use App\WalletType;
+use App\Enums\WalletType;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Wallet extends Model
 {
@@ -18,5 +19,10 @@ class Wallet extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function savings(): HasMany
+    {
+        return $this->hasMany(Saving::class);
     }
 }

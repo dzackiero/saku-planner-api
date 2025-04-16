@@ -2,21 +2,21 @@
 
 namespace App\Models;
 
-use App\Enums\CategoryType;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Saving extends Model
 {
     use HasUuids;
     protected $guarded = [];
-    protected $casts = [
-        'type' => CategoryType::class,
-    ];
 
-    /* Relationship */
+    /* Relationships */
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function wallet()
+    {
+        return $this->belongsTo(Wallet::class);
     }
 }

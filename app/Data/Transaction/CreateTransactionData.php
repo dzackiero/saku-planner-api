@@ -2,7 +2,7 @@
 
 namespace App\Data\Transaction;
 
-use App\TransactionType;
+use App\Enums\TransactionType;
 use Spatie\LaravelData\Attributes\FromAuthenticatedUserProperty;
 use Spatie\LaravelData\Attributes\Validation\ExcludeWithout;
 use Spatie\LaravelData\Attributes\Validation\Exists;

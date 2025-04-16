@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->enum('type', enum_values(WalletType::class))
                 ->default(WalletType::General->value);
             $table->currency('balance');
-            $table->timestamps();
+            $table->timestampsTz();
         });
     }
 

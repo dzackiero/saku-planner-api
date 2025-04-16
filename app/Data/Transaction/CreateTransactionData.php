@@ -4,7 +4,6 @@ namespace App\Data\Transaction;
 
 use App\TransactionType;
 use Spatie\LaravelData\Attributes\FromAuthenticatedUserProperty;
-use Spatie\LaravelData\Attributes\Validation\ExcludeWith;
 use Spatie\LaravelData\Attributes\Validation\ExcludeWithout;
 use Spatie\LaravelData\Attributes\Validation\Exists;
 use Spatie\LaravelData\Attributes\Validation\Nullable;
@@ -29,8 +28,10 @@ class CreateTransactionData extends Data
         public float $amount,
         #[Min(0), Nullable, ExcludeWithout('to_wallet_id')]
         public float|Optional $administration_fee,
-
+        #[Nullable]
         public ?string $note,
+        #[Nullable]
+        public ?string $transaction_at,
     ) {
     }
 }

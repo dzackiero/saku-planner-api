@@ -17,11 +17,15 @@ return new class extends Migration {
             $table->foreignUuid('category_id')
                 ->nullable()->constrained()->cascadeOnDelete();
             $table->foreignUuid('wallet_id')
-                ->constrained()->cascadeOnDelete();
+                ->constrained()->nullOnDelete();
+            $table->foreignUuid('to_wallet_id')
+                ->nullable()->constrained('wallets')->nullOnDelete();
             $table->enum('type', enum_values(TransactionType::class));
             $table->currency('amount');
             $table->string('note')->nullable();
-            $table->timestamps();
+            $table->timestampTz('transaction_at')
+                ->default(now());
+            $table->timestampsTz();
         });
     }
 

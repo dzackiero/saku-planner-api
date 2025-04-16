@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->string('name');
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
             $table->enum('type', enum_values(CategoryType::class));
-            $table->timestamps();
+            $table->timestampsTz();
         });
     }
 

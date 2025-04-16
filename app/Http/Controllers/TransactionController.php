@@ -2,46 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\Transaction\CreateTransactionData;
+use App\Data\Transaction\UpdateTransactionData;
 use App\Models\Transaction;
+use App\Services\TransactionService;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    public function index()
+    public function index(TransactionService $transactionService)
     {
-        //
+        $transactions = $transactionService->getTransactions();
+        return response()->json($transactions);
     }
 
-    public function store(Request $request)
+    public function store(TransactionService $service, CreateTransactionData $request)
     {
-        //
+        $transaction = $service->createTransaction($request);
+        return $this->successResponse($transaction);
     }
-    public function show(Transaction $transaction)
+    public function show(TransactionService $service, Transaction $transaction)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Transaction $transaction)
-    {
-        //
+        $transaction = $service->getTransaction($transaction);
+        return $this->successResponse($transaction);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Transaction $transaction)
+    public function update(TransactionService $service, UpdateTransactionData $request, Transaction $transaction)
     {
-        //
+        $transaction = $service->updateTransaction($transaction, $request);
+        return $this->successResponse($transaction);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Transaction $transaction)
+    public function destroy(TransactionService $service, Transaction $transaction)
     {
-        //
+        $service->deleteTransaction($transaction);
+        return $this->successResponse();
     }
 }

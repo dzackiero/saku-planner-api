@@ -10,7 +10,6 @@ class CategoryService
 {
   public function createCategory(CreateCategoryData $formData): Category
   {
-    $formData = collect($formData->toArray())->put('user_id', auth()->id());
     $category = Category::create($formData->toArray());
     return $category->refresh();
   }

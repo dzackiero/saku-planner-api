@@ -9,8 +9,8 @@ use Spatie\LaravelData\Data;
 class CreateWalletData extends Data
 {
     public function __construct(
-        #[FromAuthenticatedUserProperty('id')]
-        public string $user_id,
+        #[FromAuthenticatedUserProperty(property: 'id')]
+        public int $user_id,
 
         public string $name,
         public WalletType $type = WalletType::General,

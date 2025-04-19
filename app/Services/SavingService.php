@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Data\Saving\CreateSavingData;
 use App\Data\Saving\UpdateSavingData;
+use App\Http\Resources\Saving\SavingResource;
 use App\Models\Saving;
 
 class SavingService
@@ -30,7 +31,8 @@ class SavingService
       ->paginate(perPage: $perPage, page: $page)
       ->withQueryString();
 
-    return $savings;
+    $savings = SavingResource::collection($savings);
+    return $savings->resource;
   }
 
   public function getSaving(Saving $saving)

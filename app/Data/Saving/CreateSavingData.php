@@ -10,8 +10,8 @@ use Spatie\LaravelData\Data;
 class CreateSavingData extends Data
 {
     public function __construct(
-        #[FromAuthenticatedUserProperty('id')]
-        public string $user_id,
+        #[FromAuthenticatedUserProperty(property: 'id')]
+        public int $user_id,
 
         #[Exists('wallets', 'id')]
         public string $wallet_id,

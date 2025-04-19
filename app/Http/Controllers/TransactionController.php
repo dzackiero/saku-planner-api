@@ -13,7 +13,7 @@ class TransactionController extends Controller
     public function index(TransactionService $transactionService)
     {
         $transactions = $transactionService->getTransactions();
-        return response()->json($transactions);
+        return $this->successResponse($transactions);
     }
 
     public function store(TransactionService $service, CreateTransactionData $request)

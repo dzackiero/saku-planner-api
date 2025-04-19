@@ -42,14 +42,16 @@ class TransactionService
 
     public function getTransactions()
     {
+        $search = request('search');
         $page = request('page', 1);
         $perPage = request('per-page', 15);
-        $query = request('search', "");
         $orderBy = request('order', 'created_at');
         $direction = request('direction', 'desc');
 
         $transactions = Transaction::with(['category', 'wallet', 'toWallet'])
-            ->where('note', 'like', "%$query%")
+            ->when($search, function ($query) use ($search) {
+                $query->where('note', 'like', "%$search%");
+            })
             ->where('user_id', auth()->id())
             ->orderBy($orderBy, $direction)
             ->paginate(perPage: $perPage, page: $page);

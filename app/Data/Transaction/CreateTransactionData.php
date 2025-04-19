@@ -3,6 +3,7 @@
 namespace App\Data\Transaction;
 
 use App\Enums\TransactionType;
+use Illuminate\Support\Carbon;
 use Spatie\LaravelData\Attributes\FromAuthenticatedUserProperty;
 use Spatie\LaravelData\Attributes\Validation\ExcludeWithout;
 use Spatie\LaravelData\Attributes\Validation\Exists;
@@ -11,13 +12,14 @@ use Spatie\LaravelData\Attributes\Validation\RequiredUnless;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
+
 class CreateTransactionData extends Data
 {
     public function __construct(
-        #[FromAuthenticatedUserProperty('id')]
-        public string $user_id,
+        #[FromAuthenticatedUserProperty(property: 'id')]
+        public int $user_id,
 
-        #[Exists('categories', 'id'), RequiredUnless('to_wallet_id')]
+        #[Exists('categories', 'id'), RequiredUnless('to_wallet_id', null)]
         public ?string $category_id = null,
         #[Exists('wallets', 'id')]
         public string $wallet_id,
@@ -31,7 +33,8 @@ class CreateTransactionData extends Data
         #[Nullable]
         public ?string $note,
         #[Nullable]
-        public ?string $transaction_at,
+        public ?Carbon $transaction_at,
     ) {
+        $this->transaction_at = $transaction_at ?? Carbon::now();
     }
 }

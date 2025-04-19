@@ -17,7 +17,7 @@ class WalletService
   {
     $page = request('page', 1);
     $perPage = request('per-page', 15);
-    $query = request('search', "");
+    $query = request('search');
     $orderBy = request('order', 'created_at');
     $direction = request('direction', 'desc');
 

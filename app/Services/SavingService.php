@@ -17,16 +17,18 @@ class SavingService
 
   public function getAllSavings()
   {
+    $search = request('search');
     $page = request('page', 1);
     $perPage = request('per-page', 15);
-    $query = request('search', "");
     $orderBy = request('order', 'created_at');
     $direction = request('direction', 'desc');
 
     $savings = Saving::query()
       ->with(['wallet'])
       ->withCount(['wallet.savings'])
-      ->where('name', 'like', "%$query%")
+      ->when($search, function ($query) use ($search) {
+        $query->where('name', 'like', "%$search%");
+      })
       ->orderBy($orderBy, $direction)
       ->paginate(perPage: $perPage, page: $page)
       ->withQueryString();

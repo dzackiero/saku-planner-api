@@ -14,7 +14,9 @@ class TransactionService
     public function createTransaction(CreateTransactionData $formData)
     {
         \DB::beginTransaction();
-        $transaction = Transaction::create($formData->toArray());
+        $transaction = Transaction::create($formData->toArray())
+            ->refresh();
+
         if ($transaction->type === TransactionType::Expense) {
             $transaction->wallet->decrement('balance', $transaction->amount);
         }

@@ -16,14 +16,16 @@ class CategoryService
 
   public function getAllCategories()
   {
+    $search = request('search');
     $page = request('page', 1);
     $perPage = request('per-page', 15);
-    $query = request('search', "");
     $orderBy = request('order', 'created_at');
     $direction = request('direction', 'desc');
 
     $categories = Category::query()
-      ->where('name', 'like', "%$query%")
+      ->when($search, function ($query) use ($search) {
+        $query->where('name', 'like', "%$search%");
+      })
       ->orderBy($orderBy, $direction)
       ->paginate(perPage: $perPage, page: $page)
       ->withQueryString();

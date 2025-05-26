@@ -12,9 +12,7 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
 
             $table->uuid('id')->primary();
-            $table->foreignUuid('category_id')
-                ->constrained()
-                ->nullOnDelete();
+            $table->foreignUuid('category_id')->nullable();
             $table->currency('amount');
             $table->currency('initial_amount');
 

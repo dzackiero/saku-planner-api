@@ -27,12 +27,12 @@ class Transaction extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function wallet()
+    public function account()
     {
         return $this->belongsTo(Account::class);
     }
 
-    public function toWallet(): BelongsTo
+    public function toAccount(): BelongsTo
     {
         return $this->belongsTo(Account::class, 'to_wallet_id');
     }

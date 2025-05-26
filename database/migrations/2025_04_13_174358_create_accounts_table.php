@@ -16,9 +16,7 @@ return new class extends Migration {
             $table->string('name');
             $table->currency('balance');
             $table->string('description')->nullable();
-
-            $table->foreignUuid('target_id')->constrained()->nullOnDelete();
-
+            $table->foreignUuid('target_id')->nullable();
             $table->timestampTz("synced_at")->nullable();
             $table->timestampsTz();
             $table->softDeletesTz();

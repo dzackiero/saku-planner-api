@@ -19,5 +19,5 @@ Route::group(['prefix' => '/auth'], function () {
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    
+    Route::post('/sync', [\App\Http\Controllers\SyncController::class, 'sync']);
 });

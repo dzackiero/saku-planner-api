@@ -13,14 +13,9 @@ return new class extends Migration {
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
 
             $table->uuid('id')->primary();
-            $table->foreignUuid('category_id')
-                ->nullable()->constrained()->cascadeOnDelete();
-            $table->foreignUuid('account_id')
-                ->constrained()->nullOnDelete();
-            $table->foreignUuid('to_account_id')
-                ->nullable()
-                ->constrained('accounts')
-                ->nullOnDelete();
+            $table->foreignUuid('category_id')->nullable();
+            $table->foreignUuid('account_id')->nullable();
+            $table->foreignUuid('to_account_id')->nullable();
 
             $table->string('type');
             $table->string('kakeibo_category');

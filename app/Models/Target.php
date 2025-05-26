@@ -6,20 +6,18 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Budget extends Model
+class Target extends Model
 {
     use HasUuids, SoftDeletes;
     protected $guarded = [];
 
     /* Relationship */
-
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
-    public function category()
+    public function account()
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasOne(Account::class);
     }
 }

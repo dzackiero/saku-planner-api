@@ -12,9 +12,7 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
 
             $table->uuid('id')->primary();
-            $table->foreignUuid('budget_id')
-                ->constrained('budgets')
-                ->cascadeOnDelete();
+            $table->foreignUuid('budget_id')->nullable();
             $table->unsignedInteger("year");
             $table->unsignedInteger("month");
             $table->currency('amount');

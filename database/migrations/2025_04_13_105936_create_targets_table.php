@@ -9,14 +9,14 @@ return new class extends Migration {
 
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('targets', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
             $table->id();
-            $table->string('name');
-            $table->string('icon')->nullable();
+            $table->unsignedInteger("duration");
+            $table->date("start_date");
+            $table->currency("target_amount");
 
-            $table->string('type');
             $table->timestampTz("synced_at")->nullable();
             $table->timestampsTz();
             $table->softDeletesTz();

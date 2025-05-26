@@ -33,7 +33,7 @@ class User extends Authenticatable
 
     public function wallets()
     {
-        return $this->hasMany(Wallet::class);
+        return $this->hasMany(Account::class);
     }
     public function categories()
     {

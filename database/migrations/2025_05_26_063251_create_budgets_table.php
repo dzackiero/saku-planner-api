@@ -1,31 +1,22 @@
 <?php
 
-use App\Enums\TransactionType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
-
+return new class extends Migration
+{
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('budgets', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
             $table->id();
             $table->foreignId('category_id')
-                ->nullable()->constrained()->cascadeOnDelete();
-            $table->foreignId('account_id')
-                ->constrained()->nullOnDelete();
-            $table->foreignId('to_account_id')
-                ->nullable()
-                ->constrained('accounts')
+                ->constrained()
                 ->nullOnDelete();
-
-            $table->string('type');
-            $table->string('kakeibo_category');
             $table->currency('amount');
-            $table->string('description')->nullable();
+            $table->currency('initial_amount');
 
             $table->timestampTz("synced_at")->nullable();
             $table->timestampsTz();
@@ -38,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('budgets');
     }
 };

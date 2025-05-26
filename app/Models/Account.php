@@ -2,21 +2,15 @@
 
 namespace App\Models;
 
-
 use Illuminate\Database\Eloquent\Model;
 
-class Saving extends Model
+class Account extends Model
 {
-
     protected $guarded = [];
 
-    /* Relationships */
+    /* Relationship */
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-    public function wallet()
-    {
-        return $this->belongsTo(Wallet::class);
     }
 }

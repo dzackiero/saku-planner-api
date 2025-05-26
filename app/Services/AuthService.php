@@ -25,7 +25,7 @@ class AuthService
     {
         $user = User::where('email', $loginData->email)->first();
         if (!$user) {
-            throw new BadRequestException('User with this email does not exist');
+            throw new UnauthorizedException('Invalid credentials');
         }
 
         if (!Hash::check($loginData->password, $user->password)) {

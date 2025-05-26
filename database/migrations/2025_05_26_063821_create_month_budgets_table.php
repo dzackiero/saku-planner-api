@@ -1,30 +1,35 @@
 <?php
 
-use App\Enums\CategoryType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
-
+return new class extends Migration
+{
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('month_budgets', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
             $table->id();
-            $table->string('name');
-            $table->string('icon')->nullable();
+            $table->foreignId('budget_id')
+                ->constrained('budgets')
+                ->cascadeOnDelete();
+            $table->unsignedInteger("year");
+            $table->unsignedInteger("month");
+            $table->currency('amount');
 
-            $table->string('type');
             $table->timestampTz("synced_at")->nullable();
             $table->timestampsTz();
             $table->softDeletesTz();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('month_budgets');
     }
 };

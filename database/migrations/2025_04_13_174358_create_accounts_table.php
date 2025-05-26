@@ -1,20 +1,27 @@
 <?php
 
+use App\Enums\WalletType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
+
     public function up(): void
     {
-        Schema::create('savings', function (Blueprint $table) {
-            $table->id();
+        Schema::create('accounts', callback: function (Blueprint $table) {
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('wallet_id')->constrained()->cascadeOnDelete();
+
+            $table->id();
             $table->string('name');
-            $table->currency('target');
-            $table->unsignedInteger('target_months')->default(1);
+            $table->currency('balance');
+            $table->string('description')->nullable();
+
+            $table->foreignId('target_id')->constrained()->nullOnDelete();
+
+            $table->timestampTz("synced_at")->nullable();
             $table->timestampsTz();
+            $table->softDeletesTz();
         });
     }
 
@@ -23,6 +30,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('savings');
+        Schema::dropIfExists('wallets');
     }
 };

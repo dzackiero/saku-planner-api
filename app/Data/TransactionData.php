@@ -20,10 +20,10 @@ class TransactionData extends Data
         public float $amount,
         public ?string $description = null,
 
-        public ?Carbon $synced_at = null,
-        public ?Carbon $created_at = null,
-        public ?Carbon $updated_at = null,
-        public ?Carbon $deleted_at = null,
+        public ?string $synced_at = null,
+        public ?string $created_at = null,
+        public ?string $updated_at = null,
+        public ?string $deleted_at = null
     ) {
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use DB;
 use App\Data\Sync\SyncData;
 use App\Models\Account;
 use App\Models\Budget;
@@ -9,7 +10,6 @@ use App\Models\Category;
 use App\Models\MonthBudget;
 use App\Models\Target;
 use App\Models\Transaction;
-use DB;
 use Spatie\LaravelData\Data;
 
 class SyncService

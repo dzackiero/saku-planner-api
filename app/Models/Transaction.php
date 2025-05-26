@@ -4,12 +4,13 @@ namespace App\Models;
 
 
 use App\Enums\TransactionType;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transaction extends Model
 {
-
+    use HasUuids;
     protected $guarded = [];
     protected $casts = [
         'type' => TransactionType::class,

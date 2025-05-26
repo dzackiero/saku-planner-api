@@ -10,14 +10,14 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('accounts', callback: function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
 
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->currency('balance');
             $table->string('description')->nullable();
 
-            $table->foreignId('target_id')->constrained()->nullOnDelete();
+            $table->foreignUuid('target_id')->constrained()->nullOnDelete();
 
             $table->timestampTz("synced_at")->nullable();
             $table->timestampsTz();

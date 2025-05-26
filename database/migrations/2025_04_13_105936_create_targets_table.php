@@ -10,9 +10,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('targets', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
 
-            $table->id();
+            $table->uuid('id')->primary();
             $table->unsignedInteger("duration");
             $table->date("start_date");
             $table->currency("target_amount");

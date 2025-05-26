@@ -10,14 +10,14 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
 
-            $table->id();
-            $table->foreignId('category_id')
+            $table->uuid('id')->primary();
+            $table->foreignUuid('category_id')
                 ->nullable()->constrained()->cascadeOnDelete();
-            $table->foreignId('account_id')
+            $table->foreignUuid('account_id')
                 ->constrained()->nullOnDelete();
-            $table->foreignId('to_account_id')
+            $table->foreignUuid('to_account_id')
                 ->nullable()
                 ->constrained('accounts')
                 ->nullOnDelete();

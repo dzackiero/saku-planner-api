@@ -10,9 +10,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
 
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->string('icon')->nullable();
 

@@ -19,9 +19,5 @@ Route::group(['prefix' => '/auth'], function () {
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::apiResource('categories', \App\Http\Controllers\CategoryController::class);
-    Route::apiResource('wallets', \App\Http\Controllers\WalletController::class);
-    Route::apiResource('transactions', \App\Http\Controllers\TransactionController::class);
-    Route::get('transactions-with-relationships', [\App\Http\Controllers\TransactionController::class, 'getTransactionsWithRelationships']);
-    Route::apiResource('savings', \App\Http\Controllers\SavingController::class);
+    
 });

@@ -9,10 +9,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('month_budgets', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
 
-            $table->id();
-            $table->foreignId('budget_id')
+            $table->uuid('id')->primary();
+            $table->foreignUuid('budget_id')
                 ->constrained('budgets')
                 ->cascadeOnDelete();
             $table->unsignedInteger("year");

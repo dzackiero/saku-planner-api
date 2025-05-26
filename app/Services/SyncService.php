@@ -4,6 +4,11 @@ namespace App\Services;
 
 use App\Data\Sync\SyncData;
 use App\Models\Account;
+use App\Models\Budget;
+use App\Models\Category;
+use App\Models\MonthBudget;
+use App\Models\Target;
+use App\Models\Transaction;
 use DB;
 use Spatie\LaravelData\Data;
 
@@ -14,28 +19,46 @@ class SyncService
     DB::beginTransaction();
     try {
       foreach ($syncData->accounts as $account) {
-        $this->processItem(\App\Models\Account::class, $account);
+        $this->processItem(Account::class, $account);
       }
+      Account::whereIn('id', $syncData->deleteAccounts ?? [])
+        ->where('user_id', auth()->id())
+        ->delete();
 
       foreach ($syncData->budgets as $budget) {
-        $this->processItem(\App\Models\Budget::class, $budget);
+        $this->processItem(Budget::class, $budget);
       }
+      Budget::whereIn('id', $syncData->deleteBudgets ?? [])
+        ->where('user_id', auth()->id())
+        ->delete();
 
       foreach ($syncData->categories as $category) {
-        $this->processItem(\App\Models\Category::class, $category);
+        $this->processItem(Category::class, $category);
       }
+      Category::whereIn('id', $syncData->deleteCategories ?? [])
+        ->where('user_id', auth()->id())
+        ->delete();
 
       foreach ($syncData->monthBudgets as $monthBudget) {
-        $this->processItem(\App\Models\MonthBudget::class, $monthBudget);
+        $this->processItem(MonthBudget::class, $monthBudget);
       }
+      MonthBudget::whereIn('id', $syncData->deleteMonthBudgets ?? [])
+        ->where('user_id', auth()->id())
+        ->delete();
 
       foreach ($syncData->targets as $target) {
-        $this->processItem(\App\Models\Target::class, $target);
+        $this->processItem(Target::class, $target);
       }
+      Target::whereIn('id', $syncData->deleteTargets ?? [])
+        ->where('user_id', auth()->id())
+        ->delete();
 
       foreach ($syncData->transactions as $transaction) {
-        $this->processItem(\App\Models\Transaction::class, $transaction);
+        $this->processItem(Transaction::class, $transaction);
       }
+      Transaction::whereIn('id', $syncData->deleteTransactions ?? [])
+        ->where('user_id', auth()->id())
+        ->delete();
 
 
 

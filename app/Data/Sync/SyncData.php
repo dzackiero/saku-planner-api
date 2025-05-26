@@ -16,16 +16,28 @@ class SyncData extends Data
     public function __construct(
         #[Nullable, DataCollectionOf(AccountData::class)]
         public ?array $accounts = [],
+        #[Nullable]
+        public ?array $deleteAccounts = [],
         #[Nullable, DataCollectionOf(BudgetData::class)]
         public ?array $budgets = [],
+        #[Nullable]
+        public ?array $deleteBudgets = [],
         #[Nullable, DataCollectionOf(CategoryData::class)]
         public ?array $categories = [],
+        #[Nullable]
+        public ?array $deleteCategories = [],
         #[Nullable, DataCollectionOf(MonthBudgetData::class)]
         public ?array $monthBudgets = [],
+        #[Nullable]
+        public ?array $deleteMonthBudgets = [],
         #[Nullable, DataCollectionOf(TargetData::class)]
         public ?array $targets = [],
+        #[Nullable]
+        public ?array $deleteTargets = [],
         #[Nullable, DataCollectionOf(TransactionData::class)]
         public ?array $transactions = [],
+        #[Nullable]
+        public ?array $deleteTransactions = [],
     ) {
     }
 }

@@ -18,8 +18,8 @@ return new class extends Migration {
             $table->foreignUuid('to_account_id')->nullable();
 
             $table->string('type');
-            $table->string('kakeibo_category');
             $table->currency('amount');
+            $table->string('kakeibo_category')->nullable();
             $table->string('description')->nullable();
 
             $table->timestampTz("synced_at")->nullable();

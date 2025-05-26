@@ -9,8 +9,7 @@ use Spatie\LaravelData\Data;
 class CategoryData extends Data
 {
     public function __construct(
-        #[FromAuthenticatedUserProperty(property: 'id')]
-        public int $user_id,
+
 
         public string $id,
         public string $name,

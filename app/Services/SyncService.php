@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Data\Sync\SyncData;
+use App\Models\Account;
 use DB;
 use Spatie\LaravelData\Data;
 
@@ -12,8 +13,6 @@ class SyncService
   {
     DB::beginTransaction();
     try {
-      $serverNow = now();
-
       foreach ($syncData->accounts as $account) {
         $this->processItem(\App\Models\Account::class, $account);
       }
@@ -30,10 +29,10 @@ class SyncService
         $this->processItem(\App\Models\MonthBudget::class, $monthBudget);
       }
 
-      foreach($syncData->targets as $target) {
+      foreach ($syncData->targets as $target) {
         $this->processItem(\App\Models\Target::class, $target);
       }
-      
+
       foreach ($syncData->transactions as $transaction) {
         $this->processItem(\App\Models\Transaction::class, $transaction);
       }
@@ -42,7 +41,7 @@ class SyncService
 
     } catch (\Exception $e) {
       DB::rollBack();
-      return "Error during synchronization: " . $e->getMessage();
+      throw $e;
     }
     DB::commit();
     return "Data synchronized successfully!";
@@ -61,13 +60,19 @@ class SyncService
       return "Updated at timestamp is required for synchronization.";
     $deletedAt = $dataObject->deleted_at ?? null;
 
+    $userId = auth()->id();
     $data = $dataObject->toArray();
+    $data['user_id'] = $userId;
     if ($deletedAt) {
       $item = $modelClass::withTrashed()->find($id);
-      if (!$item->isTrashed()) {
+      if (!$item->trashed()) {
+        $item->update([
+          'synced_at' => now(),
+        ]);
         $item->delete();
       }
     } else {
+      $data['synced_at'] = now();
       unset($data['deleted_at']);
       $item = $modelClass::updateOrCreate([
         'id' => $id,

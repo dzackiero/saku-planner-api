@@ -8,23 +8,24 @@ use App\Data\MonthBudgetData;
 use App\Data\TargetData;
 use App\Data\TransactionData;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
+use Spatie\LaravelData\Attributes\Validation\Nullable;
 use Spatie\LaravelData\Data;
 
 class SyncData extends Data
 {
     public function __construct(
-        #[DataCollectionOf(AccountData::class)]
-        public array $accounts,
-        #[DataCollectionOf(BudgetData::class)]
-        public array $budgets,
-        #[DataCollectionOf(CategoryData::class)]
-        public array $categories,
-        #[DataCollectionOf(MonthBudgetData::class)]
-        public array $monthBudgets,
-        #[DataCollectionOf(TargetData::class)]
-        public array $targets,
-        #[DataCollectionOf(TransactionData::class)]
-        public array $transactions,
+        #[Nullable, DataCollectionOf(AccountData::class)]
+        public ?array $accounts = [],
+        #[Nullable, DataCollectionOf(BudgetData::class)]
+        public ?array $budgets = [],
+        #[Nullable, DataCollectionOf(CategoryData::class)]
+        public ?array $categories = [],
+        #[Nullable, DataCollectionOf(MonthBudgetData::class)]
+        public ?array $monthBudgets = [],
+        #[Nullable, DataCollectionOf(TargetData::class)]
+        public ?array $targets = [],
+        #[Nullable, DataCollectionOf(TransactionData::class)]
+        public ?array $transactions = [],
     ) {
     }
 }

@@ -10,6 +10,8 @@ class SyncController extends Controller
     public function sync(SyncData $data, SyncService $service)
     {
         $message = $service->sync($data);
-        return $this->successResponse($message);
+        return $this->successResponse(
+            message: $message
+        );
     }
 }

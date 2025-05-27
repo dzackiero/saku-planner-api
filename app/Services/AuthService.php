@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Data\Auth\EditProfileData;
 use Hash;
 use App\Models\User;
 use App\Data\Auth\LoginData;
@@ -11,16 +12,6 @@ use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class AuthService
 {
-    /**
-     * Logs in a user and generates an authentication token.
-     *
-     * @param LoginData $loginData The data required for user login.
-     * @return array{
-     *     user: \App\Models\User, // The authenticated User model instance.
-     *     token: string // The generated plain text token for the user.
-     * } An array containing the authenticated user and their authentication token.
-     * @throws UnauthorizedException If the credentials are invalid.
-     */
     public function login(LoginData $loginData)
     {
         $user = User::where('email', $loginData->email)->first();
@@ -35,16 +26,6 @@ class AuthService
         return $this->generateTokenAndReturnResponse($user);
     }
 
-    /**
-     * Registers a new user.
-     *
-     * @param RegisterData $registerData The data required for user registration.
-     * @return array{
-     *     user: \App\Models\User, // The newly created User model instance.
-     *     token: string // The generated plain text token for the user.
-     * } An array containing the created user and their authentication token.
-     * @throws BadRequestException If the user already exists.
-     */
     public function register(RegisterData $registerData): array
     {
         $user = User::where('email', $registerData->email)->first();
@@ -60,6 +41,16 @@ class AuthService
         ]);
 
         return $this->generateTokenAndReturnResponse($user);
+    }
+
+    public function updateProfile(EditProfileData $profileData): User
+    {
+        $user = auth()->user();
+        $user->update([
+            'name' => $profileData->name,
+            'email' => $profileData->email,
+        ]);
+        return $user->refresh();
     }
 
     public function generateTokenAndReturnResponse(User $user): array

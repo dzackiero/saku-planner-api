@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\Auth\EditProfileData;
 use App\Data\Auth\LoginData;
 use App\Data\Auth\RegisterData;
 use App\Services\AuthService;
@@ -18,6 +19,12 @@ class AuthController extends Controller
     {
         $user = $service->login($loginData);
         return $this->successResponse($user);
+    }
+
+    public function update(EditProfileData $profilData, AuthService $service)
+    {
+        $updatedUser = $service->updateProfile($profilData);
+        return $this->successResponse($updatedUser);
     }
 
     public function me()

@@ -12,10 +12,10 @@ Route::get('/', function () {
 Route::group(['prefix' => '/auth'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('me', [AuthController::class, 'me']);
+        Route::post('update', [AuthController::class, 'update']);
         Route::post('logout', [AuthController::class, 'logout']);
     });
     Route::post('login', [AuthController::class, 'login']);
-    Route::post('update', [AuthController::class, 'update']);
     Route::post('register', [AuthController::class, 'register']);
 });
 

@@ -14,4 +14,12 @@ class SyncController extends Controller
             message: $message
         );
     }
+
+    public function getSyncData(SyncService $service)
+    {
+        $data = $service->getSyncData();
+        return $this->successResponse(
+            data: $data
+        );
+    }
 }

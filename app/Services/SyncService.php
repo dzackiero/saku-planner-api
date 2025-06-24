@@ -14,6 +14,19 @@ use Spatie\LaravelData\Data;
 
 class SyncService
 {
+  public function getSyncData()
+  {
+    $userId = auth()->id();
+    return [
+      'accounts' => Account::where('user_id', $userId)->get(),
+      'budgets' => Budget::where('user_id', $userId)->get(),
+      'categories' => Category::where('user_id', $userId)->get(),
+      'monthBudgets' => MonthBudget::where('user_id', $userId)->get(),
+      'targets' => Target::where('user_id', $userId)->get(),
+      'transactions' => Transaction::where('user_id', $userId)->get(),
+    ];
+  }
+
   public function sync(SyncData $syncData)
   {
     DB::beginTransaction();
